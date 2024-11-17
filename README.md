@@ -82,7 +82,7 @@ Dự án này phân loại màu bằng thuật toán K-Nearest Neighbor. Bộ ph
   
 ## Đối với dự án này:
 
-**1.) Trích xuất đặc trưng** = Color Histogram
+**1) Trích xuất đặc trưng** = Color Histogram
 
 Color Histogram là một biểu diễn sự phân bố của các màu trong một hình ảnh. Đối với hình ảnh, một histogram màu biểu diễn số lượng điểm ảnh có các màu trong mỗi dải màu cố định, bao phủ không gian màu của hình ảnh, tập hợp tất cả các màu có thể có.
 
@@ -90,7 +90,9 @@ Color Histogram là một biểu diễn sự phân bố của các màu trong m�
   <img src="https://github.com/DuongTrungQuoc/ColorClassifier_KNN/blob/main/assets/color_histogram.jpg">
 </p>
 
-**2.) Phân loại** = Thuật toán K-Nearest Neighbors
+**2) Phân loại** = Thuật toán K-Nearest Neighbors
+
+## Chi tiết dự án:
 
 Trong thư mục “[src](https://github.com/ahmetozlu/color_recognition/tree/master/src)” có 2 Python classes:
 
@@ -104,35 +106,35 @@ Trong thư mục “[color_recognition_api](https://github.com/ahmetozlu/color_r
 
 - **[knn_classifier.py](https://github.com/ahmetozlu/color_recognition/blob/master/src/color_recognition_api/knn_classifier.py):** lớp phân loại KNN
 
-**1.) Explanation of “[feature_extraction.py](https://github.com/ahmetozlu/color_recognition/blob/master/src/color_recognition_api/color_histogram_feature_extraction.py)"**
+**1) Giải thích về  “[feature_extraction.py](https://github.com/ahmetozlu/color_recognition/blob/master/src/color_recognition_api/color_histogram_feature_extraction.py)"**
 
-I can get the RGB color histogram of images by this Python class. For example, plot of RGB color histogram for one of the red images is given at the below.
+Tôi có thể lấy được histogram màu RGB của các hình ảnh bằng lớp Python này. Ví dụ, biểu đồ histogram màu RGB của một trong những hình ảnh màu đỏ được đưa ra dưới đây.
 
 <p align="center">
   <img src="https://user-images.githubusercontent.com/22610163/34919478-f198beb8-f975-11e7-8c1c-0a552f7cd673.jpg" {width=25px height=250px}>
 </p>
 
-I decided to use bin number of histogram which has the peak value of pixel count for R, G and B as feature so I can get the dominant R, G and B values to create feature vectors for training. For example, the dominant R, G and B values of the red image which is given at above is [254, 0, 2].
+Tôi quyết định sử dụng số lượng bin của histogram, cái có giá trị đỉnh là số lượng điểm ảnh cho R, G và B làm đặc trưng để tôi có thể lấy được các giá trị R, G và B chủ đạo nhằm tạo ra các vector đặc trưng cho việc huấn luyện. Ví dụ, các giá trị R, G và B chủ đạo của hình ảnh màu đỏ được đưa ra trên đây là [254, 0, 2].
 
-I get the dominant R, G, B values by using Color Histogram for each training image then I labelled them because KNN classifier is a supervised learner and I deploy these feature vectors in the csv file. Thus, I create my training feature vector dataset. It can be found in the file which name’s is [training.data](https://github.com/ahmetozlu/color_recognition/blob/master/src/training.data) under src folder.
+Tôi lấy các giá trị R, G, B chủ đạo bằng cách sử dụng Histogram màu cho mỗi hình ảnh huấn luyện rồi gán nhãn cho chúng vì KNN là một thuật toán học giám sát và tôi triển khai các vector đặc trưng này vào tệp csv. Do đó, tôi tạo ra bộ dữ liệu vector đặc trưng huấn luyện của mình. Bộ dữ liệu này có thể được tìm thấy trong tệp có tên [training.data](https://github.com/ahmetozlu/color_recognition/blob/master/src/training.data) trong thư mục src.
 
-**2.) Explanation of “[knn_classifier.py](https://github.com/ahmetozlu/color_recognition/blob/master/src/color_recognition_api/knn_classifier.py)”**
+**2) Giải thích về “[knn_classifier.py](https://github.com/ahmetozlu/color_recognition/blob/master/src/color_recognition_api/knn_classifier.py)”**
 
-This class provides these main calculations;
+Lớp này cung cấp các phương thức chính sau:
 
-1. Fetching training data
-2. Fetching test image features
-3. Calculating euclidean distance
-4. Getting k nearest neighbors
-5. Prediction of color
-6. Returning the prediction is true or false
+1. Lấy dữ liệu huấn luyện
+2. Lấy đặc trưng hình ảnh
+3. Tính toán khoảng cách Euclid
+4. Lấy k láng giềng gần nhất
+5. Dự đoán màu sắc
+6. Trả về dự đoán đúng hay sai
 
-**“[color_classification_webcam.py](https://github.com/ahmetozlu/color_recognition/blob/master/src/color_classification_webcam.py)”** is the main class of my program, it provides;
+**“[color_classification_webcam.py](https://github.com/ahmetozlu/color_recognition/blob/master/src/color_classification_webcam.py)”** là lớp chính trong Project, nó cung cấp:
 
-1. Calling [feature_extraction.py](https://github.com/ahmetozlu/color_recognition/blob/master/src/color_recognition_api/color_histogram_feature_extraction.py) to create training data by feature extraction
-2. Calling [knn_classifier.py](https://github.com/ahmetozlu/color_recognition/blob/master/src/color_recognition_api/knn_classifier.py) for classification
+1. Gọi [feature_extraction.py](https://github.com/ahmetozlu/color_recognition/blob/master/src/color_recognition_api/color_histogram_feature_extraction.py) để tạo dữ liệu huấn luyện thông qua trích xuất đặc trưng
+2. Gọi [knn_classifier.py](https://github.com/ahmetozlu/color_recognition/blob/master/src/color_recognition_api/knn_classifier.py) để phân loại
 
-You can find training data in [here](https://github.com/ahmetozlu/color_classifier/tree/master/src/training_dataset).
+Bạn có thể tìm thấy dữ liệu huấn luyện [ở đây](https://github.com/ahmetozlu/color_classifier/tree/master/src/training_dataset).
 
-You can find features are got from training data in [here](https://raw.githubusercontent.com/ahmetozlu/color_classifier/master/src/training.data).
+Bạn có thể tìm thấy các đặc trưng được lấy từ dữ liệu huấn luyện [ở đây](https://raw.githubusercontent.com/ahmetozlu/color_classifier/master/src/training.data).
 
