@@ -47,7 +47,7 @@ Trong bài toán Classification, label của một điểm dữ liệu mới đ�
 
 ---
 ### Dự án này làm được những gì?
-1. **Trích xuất đặc trưng:** Lấy giá trị histogram màu RGB từ [ảnh huấn luyện](https://github.com/DuongTrungQuoc/ColorClassifier_KNN/tree/main/color_classifier/src/training_dataset)
+1. **Trích xuất đặc trưng:** Lấy giá trị histogram màu RGB từ [training images](https://github.com/DuongTrungQuoc/ColorClassifier_KNN/tree/main/color_classifier/src/training_dataset)
 2. **Huấn luyện bộ phân loại KNN:** Sử dụng giá trị histogram màu R, G, B để huấn luyện bộ phân loại KNN.
 3. **Phân loại bằng KNN đã huấn luyện:** Đọc từng khung hình từ webcam, trích xuất đặc trưng và phân loại màu chính của khung hình bằng KNN đã huấn luyện.
 ---
@@ -57,7 +57,7 @@ Trong bài toán Classification, label của một điểm dữ liệu mới đ�
 Dự án này phân loại màu bằng thuật toán K-Nearest Neighbor. Bộ phân loại được huấn luyện bằng giá trị histogram màu R, G, B của hình ảnh. **Quy trình làm việc chung như sau:**
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/22610163/35335133-a9632c70-0125-11e8-9204-0b4bfd0702a7.png" {width=35px height=350px}>
+  <img src="https://github.com/DuongTrungQuoc/ColorClassifier_KNN/blob/main/assets/KNN.png" {width=35px height=350px}>
 </p>
 
 ### Giải thích sơ đồ trên:
@@ -94,31 +94,31 @@ Color Histogram là một biểu diễn sự phân bố của các màu trong m�
 
 ## Chi tiết dự án:
 
-Trong thư mục “[src](https://github.com/ahmetozlu/color_recognition/tree/master/src)” có 2 Python classes:
+Trong thư mục “[src](https://github.com/DuongTrungQuoc/ColorClassifier_KNN/tree/main/color_classifier/src)” có 2 Python classes:
 
-- **[color_classification_webcam.py](https://github.com/ahmetozlu/color_recognition/blob/master/src/color_classification_webcam.py):** thực hiện nhận dạng màu theo thời gian thực từ dòng webcam.
+- **[color_classification_webcam.py](https://github.com/DuongTrungQuoc/ColorClassifier_KNN/blob/main/color_classifier/src/color_classification_webcam.py):** thực hiện nhận dạng màu theo thời gian thực từ dòng webcam.
 
-- **[color_classification_image.py](https://github.com/ahmetozlu/color_recognition/blob/master/src/color_classification_image.py):** thực hiện nhận dạng màu trên một hình ảnh.
+- **[color_classification_image.py](https://github.com/DuongTrungQuoc/ColorClassifier_KNN/blob/main/color_classifier/src/color_classification_image.py):** thực hiện nhận dạng màu trên một hình ảnh.
 
-Trong thư mục “[color_recognition_api](https://github.com/ahmetozlu/color_recognition/tree/master/src/color_recognition_api)” có 2 Python classes:
+Trong thư mục “[color_recognition_api](https://github.com/DuongTrungQuoc/ColorClassifier_KNN/tree/main/color_classifier/src/color_recognition_api)” có 2 Python classes:
 
 - **[feature_extraction.py](https://github.com/ahmetozlu/color_recognition/blob/master/src/color_recognition_api/color_histogram_feature_extraction.py):** trích xuất đặc trưng
 
-- **[knn_classifier.py](https://github.com/ahmetozlu/color_recognition/blob/master/src/color_recognition_api/knn_classifier.py):** lớp phân loại KNN
+- **[knn_classifier.py](https://github.com/DuongTrungQuoc/ColorClassifier_KNN/blob/main/color_classifier/src/color_recognition_api/knn_classifier.py):** lớp phân loại KNN
 
 **1) Giải thích về  “[feature_extraction.py](https://github.com/ahmetozlu/color_recognition/blob/master/src/color_recognition_api/color_histogram_feature_extraction.py)"**
 
-Tôi có thể lấy được histogram màu RGB của các hình ảnh bằng lớp Python này. Ví dụ, biểu đồ histogram màu RGB của một trong những hình ảnh màu đỏ được đưa ra dưới đây.
+Tôi có thể lấy được histogram màu RGB của các hình ảnh bằng lớp Python này. Ví dụ, histogram màu RGB của một trong những hình ảnh màu đỏ được đưa ra dưới đây.
 
 <p align="center">
-  <img src="https://user-images.githubusercontent.com/22610163/34919478-f198beb8-f975-11e7-8c1c-0a552f7cd673.jpg" {width=25px height=250px}>
+  <img src="https://github.com/DuongTrungQuoc/ColorClassifier_KNN/blob/main/assets/red.jpg" {width=25px height=250px}>
 </p>
 
 Tôi quyết định sử dụng số lượng bin của histogram, cái có giá trị đỉnh là số lượng điểm ảnh cho R, G và B làm đặc trưng để tôi có thể lấy được các giá trị R, G và B chủ đạo nhằm tạo ra các vector đặc trưng cho việc huấn luyện. Ví dụ, các giá trị R, G và B chủ đạo của hình ảnh màu đỏ được đưa ra trên đây là [254, 0, 2].
 
-Tôi lấy các giá trị R, G, B chủ đạo bằng cách sử dụng Histogram màu cho mỗi hình ảnh huấn luyện rồi gán nhãn cho chúng vì KNN là một thuật toán học giám sát và tôi triển khai các vector đặc trưng này vào tệp csv. Do đó, tôi tạo ra bộ dữ liệu vector đặc trưng huấn luyện của mình. Bộ dữ liệu này có thể được tìm thấy trong tệp có tên [training.data](https://github.com/ahmetozlu/color_recognition/blob/master/src/training.data) trong thư mục src.
+Tôi lấy các giá trị R, G, B bằng cách sử dụng Color Histogram cho mỗi hình ảnh huấn luyện rồi gán nhãn cho chúng vì KNN là một thuật toán học giám sát và tôi triển khai các vector đặc trưng này vào tệp csv. Do đó, tôi tạo ra bộ dữ liệu vector đặc trưng huấn luyện của mình. Bộ dữ liệu này có thể được tìm thấy trong tệp có tên [training.data](https://github.com/ahmetozlu/color_recognition/blob/master/src/training.data) trong thư mục src.
 
-**2) Giải thích về “[knn_classifier.py](https://github.com/ahmetozlu/color_recognition/blob/master/src/color_recognition_api/knn_classifier.py)”**
+**2) Giải thích về “[knn_classifier.py](https://github.com/DuongTrungQuoc/ColorClassifier_KNN/blob/main/color_classifier/src/color_recognition_api/knn_classifier.py)”**
 
 Lớp này cung cấp các phương thức chính sau:
 
@@ -127,14 +127,14 @@ Lớp này cung cấp các phương thức chính sau:
 3. Tính toán khoảng cách Euclid
 4. Lấy k láng giềng gần nhất
 5. Dự đoán màu sắc
-6. Trả về dự đoán đúng hay sai
+6. Trả về dự đoán đúng/sai
 
-**“[color_classification_webcam.py](https://github.com/ahmetozlu/color_recognition/blob/master/src/color_classification_webcam.py)”** là lớp chính trong Project, nó cung cấp:
+**“[color_classification_webcam.py](https://github.com/DuongTrungQuoc/ColorClassifier_KNN/blob/main/color_classifier/src/color_classification_webcam.py)”** là lớp chính trong Project, nó cung cấp:
 
-1. Gọi [feature_extraction.py](https://github.com/ahmetozlu/color_recognition/blob/master/src/color_recognition_api/color_histogram_feature_extraction.py) để tạo dữ liệu huấn luyện thông qua trích xuất đặc trưng
-2. Gọi [knn_classifier.py](https://github.com/ahmetozlu/color_recognition/blob/master/src/color_recognition_api/knn_classifier.py) để phân loại
+1. Gọi [feature_extraction.py](https://github.com/DuongTrungQuoc/ColorClassifier_KNN/blob/main/color_classifier/src/color_recognition_api/color_histogram_feature_extraction.py) để tạo dữ liệu huấn luyện thông qua trích xuất đặc trưng
+2. Gọi [knn_classifier.py](https://github.com/DuongTrungQuoc/ColorClassifier_KNN/blob/main/color_classifier/src/color_recognition_api/knn_classifier.py) để phân loại
 
-Bạn có thể tìm thấy dữ liệu huấn luyện [ở đây](https://github.com/ahmetozlu/color_classifier/tree/master/src/training_dataset).
+Bạn có thể tìm thấy dữ liệu huấn luyện [ở đây](https://github.com/DuongTrungQuoc/ColorClassifier_KNN/tree/main/color_classifier/src/training_dataset).
 
-Bạn có thể tìm thấy các đặc trưng được lấy từ dữ liệu huấn luyện [ở đây](https://raw.githubusercontent.com/ahmetozlu/color_classifier/master/src/training.data).
+Bạn có thể tìm thấy các đặc trưng được lấy từ dữ liệu huấn luyện [ở đây](https://github.com/DuongTrungQuoc/ColorClassifier_KNN/blob/main/color_classifier/src/training.data).
 
