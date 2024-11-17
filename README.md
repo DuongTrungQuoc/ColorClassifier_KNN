@@ -79,5 +79,17 @@ Dự án này phân loại màu bằng thuật toán K-Nearest Neighbor. Bộ ph
 
 **Nhãn lớp màu sắc (Class label - Color Name):**
 - Sau khi phân loại, hệ thống sẽ trả về nhãn lớp tương ứng với màu sắc, ví dụ: "Red", "Blue", v.v.
+  
+## Đối với dự án này:
+
+**1.) Trích xuất đặc trưng** = Color Histogram
+
+Color Histogram là một biểu diễn sự phân bố của các màu trong một hình ảnh. Đối với hình ảnh, một histogram màu biểu diễn số lượng điểm ảnh có các màu trong mỗi dải màu cố định, bao phủ không gian màu của hình ảnh, tập hợp tất cả các màu có thể có.
+
+<p align="center">
+  <img src="https://github.com/DuongTrungQuoc/ColorClassifier_KNN/blob/main/assets/color_histogram.jpg">
+</p>
+
+**2.) Phân loại** = Thuật toán K-Nearest Neighbors
 
 
